@@ -56,7 +56,41 @@
     <table id="resultats" class="table-auto w-full mt-6 border border-gray-300">
       <!-- Résultats seront injectés ici -->
     </table>
-  </div>
+    <form id="postRaw" class="space-y-6 mt-6">
+      <label class="block text-sm font-medium">
+      raw data
+      <p>exemple format : 
+        <pre class="bg-gray-200 p-2 rounded">
+[{ 
+  nom: "Vampire Lord", 
+  cout: 225, 
+  attaques: 4, 
+  force: 4, 
+  degat: 2, 
+  degatCrit: 6, 
+  pv: 25, 
+  movement: 5,range: 1, 
+  endurance: 5 
+},
+{ 
+  nom: "Prince Duvalle", 
+  cout: 210, 
+  attaques: 4, 
+  force: 4, 
+  degat: 2, 
+  degatCrit: 6, 
+  pv: 26, 
+  movement: 5, 
+  range: 1, 
+  endurance: 4 
+}]
+      </pre>
+      </p>
+        <textarea id="raw" class="mt-6 w-full h-64 border border-gray-300 p-4 bg-gray-50" name="raw" required></textarea>
+    </label>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">remplacer</button>
+  </form>
+</div>
   <script>
 
     let PONDERATION = {
@@ -92,6 +126,7 @@
 
     if (savedData) {
         data = JSON.parse(savedData);
+        console.log(data);
         currentId = data.length ? Math.max(...data.map(e => e.id)) + 1 : 0;
         const results = comparer(data, criteres);
         afficherResultats(results);
@@ -129,6 +164,36 @@
         return { ...entite, score: +score.toFixed(3) };
       }).sort((a, b) => b.score - a.score);
     }
+
+    document.getElementById("postRaw").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const rawData = formData.get("raw");
+      let parsed
+      try {
+        parsed = JSON.parse(rawData);
+        
+      } catch (err) {
+          try {
+            // Sinon, on essaie d'évaluer comme du JS (dans un scope limité)
+            parsed = eval("(" + rawData + ")");
+          } catch (evalError) {
+            alert("Erreur de format JSON/JS : impossible d’analyser les données.");
+            console.error(evalError);
+            return;
+          } 
+      }
+      data = parsed.map((entite, index) => {
+        entite.dps = calculerDps(entite);
+        entite.id = index;
+        return entite;
+      });
+      currentId = data.length;
+      localStorage.setItem("entites", JSON.stringify(data));
+      const results = comparer(data, criteres);
+      afficherResultats(results);
+      e.target.reset();
+    });
 
     document.getElementById("form").addEventListener("submit", (e) => {
       e.preventDefault();
@@ -173,6 +238,7 @@
         { nom: 'F', value: entite.force },
         { nom: 'E', value: entite.endurance },
         { nom: 'PV', value: entite.pv },
+        { nom: 'M', value: entite.movement },
       ];
       return stats.map(stat => `${stat.nom} : ${stat.value}`).join(" | ");
     }
@@ -201,7 +267,7 @@
           ${payload.map((row, index) =>
             `<tr>
               ${colonnesAAfficher.map(c => `<td>${c !== 'stats' ? row[c] : formatStatistiques( row )}</td>`).join("")}
-              <td><button onclick="supprimerEntite(${index})">❌</button></td>
+              <td><button onclick="supprimerEntite(${row.id})">❌</button></td>
             </tr>`
           ).join("")}
         </tbody>
