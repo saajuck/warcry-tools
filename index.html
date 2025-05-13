@@ -11,47 +11,91 @@
     th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
     button { cursor: pointer; }
   </style>
+
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>Warcry Stat Comparator</h1>
 
-  <form id="form">
-    <h2>Ajouter un personnage</h2>
-    <div class="grid">
-      <div><label>Nom <input name="nom" required /></label></div>
-      <div><label>Coût <input type="number" value="1" name="cout" required /></label></div>
-      <div><label>Attaques <input type="number" value="1" name="attaques" required /></label></div>
-      <div><label>Force <input type="number" value="1" name="force" required /></label></div>
-      <div><label>Dégâts <input type="number" value="1" name="degat" required /></label></div>
-      <div><label>Critique <input type="number" value="1" name="degatCrit" required /></label></div>
-      <div><label>PV <input type="number" value="1" name="pv" required /></label></div>
-      <div><label>Endurance <input type="number" value="1" name="endurance" required /></label></div>
-      <div><label>Mouvement <input type="number" value="1" name="movement" required /></label></div>
-      <div><label>Portée <input type="number" value="1" name="range" required /></label></div>
-    </div>
+<body class="bg-gray-100 text-gray-800 p-6">
+    <div class="max-w-5xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">Warcry Stat Comparator</h1>
 
-    <h2>Pondération des critères</h2>
-    <div class="grid">
-      <div><label>Coût <input type="number" name="coutPonderation" value="0.8" step="0.1" /></label></div>
-      <div><label>Attaques <input type="number" name="attaquesPonderation" value="0.1" step="0.1" /></label></div>
-      <div><label>Force <input type="number" name="forcePonderation" value="0.1" step="0.1" /></label></div>
-      <div><label>Dégâts <input type="number" name="degatPonderation" value="0.1" step="0.1" /></label></div>
-      <div><label>Critique <input type="number" name="degatCritPonderation" value="0.1" step="0.1" /></label></div>
-      <div><label>Portée <input type="number" name="rangePonderation" value="0.05" step="0.1" /></label></div>
-      <div><label>DPS <input type="number" name="dpsPonderation" value="0.8" step="0.1" /></label></div>
-      <div><label>PV <input type="number" name="pvPonderation" value="0.2" step="0.1" /></label></div>
-      <div><label>Endurance <input type="number" name="endurancePonderation" value="0.3" step="0.1" /></label></div>
-      <div><label>Mouvement <input type="number" name="movementPonderation" value="0.3" step="0.1" /></label></div>
-    </div>
-    
-    <button type="submit">Ajouter</button>
-  </form>
+    <form id="form" class="space-y-6">
+      <h2 class="text-xl font-semibold">Ajouter un personnage</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div><label class="block text-sm font-medium">Nom<input name="nom" required class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Coût<input type="number" value="1" name="cout" required class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Attaques<input type="number" value="1" name="attaques" required class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Force<input type="number" value="1" name="force" required class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Dégâts<input type="number" value="1" name="degat" required class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Critique<input type="number" value="1" name="degatCrit" required class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">PV<input type="number" value="1" name="pv" required class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Endurance<input type="number" value="1" name="endurance" required class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Mouvement<input type="number" value="1" name="movement" required class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Portée<input type="number" value="1" name="range" required class="mt-1 w-full p-2 border rounded" /></label></div>
+      </div>
 
-  <table id="resultats"></table>
+      <h2 class="text-xl font-semibold pt-4">Pondération des critères</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div><label class="block text-sm font-medium">Coût<input type="number" name="coutPonderation" value="0.8" step="0.1" class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Attaques<input type="number" name="attaquesPonderation" value="0.1" step="0.1" class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Force<input type="number" name="forcePonderation" value="0.1" step="0.1" class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Dégâts<input type="number" name="degatPonderation" value="0.1" step="0.1" class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Critique<input type="number" name="degatCritPonderation" value="0.1" step="0.1" class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Portée<input type="number" name="rangePonderation" value="0.05" step="0.1" class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">DPS<input type="number" name="dpsPonderation" value="0.8" step="0.1" class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">PV<input type="number" name="pvPonderation" value="0.2" step="0.1" class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Endurance<input type="number" name="endurancePonderation" value="0.3" step="0.1" class="mt-1 w-full p-2 border rounded" /></label></div>
+        <div><label class="block text-sm font-medium">Mouvement<input type="number" name="movementPonderation" value="0.3" step="0.1" class="mt-1 w-full p-2 border rounded" /></label></div>
+      </div>
 
+      <div class="pt-4 space-x-2">
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Ajouter</button>
+      </div>
+    </form>
+
+    <table id="resultats" class="table-auto w-full mt-6 border border-gray-300">
+      <!-- Résultats seront injectés ici -->
+    </table>
+  </div>
   <script>
+
+    let PONDERATION = {
+      cout: 0.8,
+      attaques: 0.1,
+      force: 0.1,
+      degat: 0.1,
+      degatCrit: 0.1,
+      range: 0.05,
+      dps: 0.8,
+      pv: 0.2,
+      endurance: 0.3,
+      movement: 0.3
+    };
+
+    const criteres = [
+      { champ: "cout", poids: PONDERATION.cout, optimiser: "min" },
+      { champ: "attaques", poids: PONDERATION.attaques, optimiser: "max" },
+      { champ: "force", poids: PONDERATION.force, optimiser: "max" },
+      { champ: "degat", poids: PONDERATION.degat, optimiser: "max" },
+      { champ: "degatCrit", poids: PONDERATION.degatCrit, optimiser: "max" },
+      { champ: "range", poids: PONDERATION.range, optimiser: "max" },
+      { champ: "dps", poids: PONDERATION.dps, optimiser: "max" },
+      { champ: "pv", poids: PONDERATION.pv, optimiser: "max" },
+      { champ: "endurance", poids: PONDERATION.endurance, optimiser: "max" },
+      { champ: "movement", poids: PONDERATION.movement, optimiser: "max" },
+    ];
+
+
     let data = [];
+    const savedData = localStorage.getItem("entites");
     let currentId = 0;
+
+    if (savedData) {
+        data = JSON.parse(savedData);
+        currentId = data.length ? Math.max(...data.map(e => e.id)) + 1 : 0;
+        const results = comparer(data, criteres);
+        afficherResultats(results);
+    }
 
     function calculerDps({ attaques, degat, degatCrit }) {
       const pCrit = 1 / 6;
@@ -86,32 +130,6 @@
       }).sort((a, b) => b.score - a.score);
     }
 
-    let PONDERATION = {
-      cout: 0.8,
-      attaques: 0.1,
-      force: 0.1,
-      degat: 0.1,
-      degatCrit: 0.1,
-      range: 0.05,
-      dps: 0.8,
-      pv: 0.2,
-      endurance: 0.3,
-      movement: 0.3
-    };
-
-    const criteres = [
-      { champ: "cout", poids: PONDERATION.cout, optimiser: "min" },
-      { champ: "attaques", poids: PONDERATION.attaques, optimiser: "max" },
-      { champ: "force", poids: PONDERATION.force, optimiser: "max" },
-      { champ: "degat", poids: PONDERATION.degat, optimiser: "max" },
-      { champ: "degatCrit", poids: PONDERATION.degatCrit, optimiser: "max" },
-      { champ: "range", poids: PONDERATION.range, optimiser: "max" },
-      { champ: "dps", poids: PONDERATION.dps, optimiser: "max" },
-      { champ: "pv", poids: PONDERATION.pv, optimiser: "max" },
-      { champ: "endurance", poids: PONDERATION.endurance, optimiser: "max" },
-      { champ: "movement", poids: PONDERATION.movement, optimiser: "max" },
-    ];
-
     document.getElementById("form").addEventListener("submit", (e) => {
       e.preventDefault();
       const formData = new FormData(e.target);
@@ -125,6 +143,7 @@
       entite.id = currentId++;
 
       data.push(entite);
+      localStorage.setItem("entites", JSON.stringify(data));
 
       for (const [key, value] of formData.entries()) {
         if (key.includes("Ponderation")) {
@@ -140,7 +159,9 @@
 
     function supprimerEntite(id) {
       data = data.filter(e => e.id !== id);
+      localStorage.setItem("entites", JSON.stringify(data));
       const results = comparer(data, criteres);
+      
       afficherResultats(results);
     }
 
