@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Warcry Stat Comparator</title>
+  <style>
+    body { font-family: sans-serif; padding: 1rem; }
+    label, input { display: block; margin: 0.25rem 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    table { margin-top: 2rem; border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+  </style>
+</head>
+<body>
+  <h1>Warcry Stat Comparator</h1>
+
+  <form id="form">
+    <h2>Ajouter un personnage</h2>
+    <div class="grid">
+      <div><label>Nom <input name="nom" required /></label></div>
+      <div><label>Coût <input type="number" name="cout" required /></label></div>
+      <div><label>Attaques <input type="number" name="attaques" required /></label></div>
+      <div><label>Force <input type="number" name="force" required /></label></div>
+      <div><label>Dégâts <input type="number" name="degat" required /></label></div>
+      <div><label>Critique <input type="number" name="degatCrit" required /></label></div>
+      <div><label>PV <input type="number" name="pv" required /></label></div>
+      <div><label>Endurance <input type="number" name="endurance" required /></label></div>
+      <div><label>Mouvement <input type="number" name="movement" required /></label></div>
+      <div><label>Portée <input type="number" name="range" required /></label></div>
+    </div>
+
+    <h2>Ponderation des critères</h2>
+    <div class="grid">
+      <div><label>Coût <input type="number" name="coutPonderation" value="0.8" step="0.1" /></label></div>
+      <div><label>Attaques <input type="number" name="attaquesPonderation" value="0.1" step="0.1" /></label></div>
+      <div><label>Force <input type="number" name="forcePonderation" value="0.1" step="0.1" /></label></div>
+      <div><label>Dégâts <input type="number" name="degatPonderation" value="0.1" step="0.1" /></label></div>
+      <div><label>Critique <input type="number" name="degatCritPonderation" value="0.1" step="0.1" /></label></div>
+      <div><label>Portée <input type="number" name="rangePonderation" value="0.05" step="0.1" /></label></div>
+      <div><label>DPS <input type="number" name="dpsPonderation" value="0.8" step="0.1" /></label></div>
+      <div><label>PV <input type="number" name="pvPonderation" value="0.2" step="0.1" /></label></div>
+      <div><label>Endurance <input type="number" name="endurancePonderation" value="0.3" step="0.1" /></label></div>
+      <div><label>Mouvement <input type="number" name="movementPonderation" value="0.3" step="0.1" /></label></div>
+    </div>
+    
+    <button type="submit">Ajouter</button>
+  </form>
+
+  <button id="calculer">Calculer Scores</button>
+  <table id="resultats"></table>
+
+  <script src="script.js"></script>
+</body>
+</html>
