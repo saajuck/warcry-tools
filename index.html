@@ -151,7 +151,6 @@
           max: Math.max(...valeurs)
         };
       }
-
       return entites.map(entite => {
         let score = 0;
         for (const { champ, poids, optimiser } of configCritères) {
@@ -239,6 +238,8 @@
         { nom: 'E', value: entite.endurance },
         { nom: 'PV', value: entite.pv },
         { nom: 'M', value: entite.movement },
+        { nom: 'dégats', value: entite.degat + '/' + entite.degatCrit },
+        
       ];
       return stats.map(stat => `${stat.nom} : ${stat.value}`).join(" | ");
     }
