@@ -94,6 +94,13 @@ document.getElementById("calculer").addEventListener("click", () => {
   afficherResultats(results);
 });
 
+function supprimerEntite(index) {
+    console.log(index)
+  data.splice(index, 1);
+  const results = comparer(data, criteres);
+  afficherResultats(results);
+}
+
 function afficherResultats(data) {
   const table = document.getElementById("resultats");
   if (data.length === 0) return;
@@ -102,8 +109,10 @@ function afficherResultats(data) {
   table.innerHTML = `
     <thead><tr>${cols.map(c => `<th>${c}</th>`).join("")}</tr></thead>
     <tbody>
-      ${data.map(row =>
-        `<tr>${cols.map(c => `<td>${row[c]}</td>`).join("")}</tr>`
+      ${data.map((row, index) =>
+        `<tr>${cols.map(c => `<td>${row[c]}</td>`).join("")}
+        <td><button onClick="() => supprimerEntite(${index})">supprimer</button></td>
+        </tr>`
       ).join("")}
     </tbody>
   `;
